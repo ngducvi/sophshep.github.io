@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,34 +22,39 @@
   </style>
   <script>
     $(document).ready(function () {
-      $(document).ready(function () {
-        function ktdangnhap() {
-          var username = $("#username").val();
-          var password = $("#inputPassword").val();
+      function ktdangnhap() {
+        // your existing code for validating the login credentials
+        var username = $("#username").val();
+        var password = $("#inputPassword").val();
 
-          // Lấy dữ liệu từ localStorage và chuyển đổi thành object
-          var storedList = JSON.parse(localStorage.getItem("list"));
-
-          // Duyệt qua các phần tử trong storedList để kiểm tra username và password
-          for (var i = 0; i < storedList.length; i++) {
-            if (storedList[i].username == username && storedList[i].password == password) {
-              // Nếu thông tin đăng nhập hợp lệ thì thực hiện các hành động cần thiết
-              alert("Đăng nhập thành công!");
-              window.location.href = "../index.html";
-              return;
-            }else {
-              $("#err").text("Sai tên đăng nhập hoặc mật khẩu!"); // Thông báo lỗi đăng nhập
-              $("#err").addClass("error");
+        // Lấy thông tin đăng nhập từ localStorage list = [{username: "admin", password: "admin"}]
+        var storedUsername = localStorage.getItem("username");
+        var storedPwd = localStorage.getItem("password");
+        var list = JSON.parse(localStorage.getItem("list"));
+        var flag = false;
+        if (list != null) {
+          for (var i = 0; i < list.length; i++) {
+            if (username == list[i].username && password == list[i].password) {
+              flag = true;
+              break;
             }
           }
         }
-        $('#login-btn').click(function () {
-          ktdangnhap();
-        });
-      });
+        if (flag) {
+          alert("Đăng nhập thành công");
+          window.location.href = "../index.html";
+        } else {
+          alert("Đăng nhập thất bại");
+          $("#err").text("Sai tên đăng nhập hoặc mật khẩu");
+          $("#err").css("color", "red");
+        }
 
-    }
-    );
+      }
+
+      $('#login-btn').click(function () {
+        ktdangnhap();
+      });
+    });
   </script>
 </head>
 
