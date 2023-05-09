@@ -10,9 +10,51 @@
     <link href="../css/index.css" rel="stylesheet">
     <script src="../js/jquery-3.5.1.min.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            function savedata() {
+                var tableData = []; // Khởi tạo mảng rỗng để lưu dữ liệu
+                $('#tbsp tbody tr').each(function (row, tr) {
+                    tableData[row] = {
+                        "stt": $(tr).find('td:eq(0)').text(),
+                        "image": $(tr).find('td:eq(1) img').attr('src'),
+                        "product": $(tr).find('td:eq(2)').text(),
+                        "quantity": $(tr).find('td:eq(3)').text(),
+                        "unitprice": $(tr).find('td:eq(4)').text(),
+                        "total": $(tr).find('td:eq(5)').text(),
+                    }
+                    alert("Đã thêm thành công!");
+                });
+                localStorage.setItem("tableData", JSON.stringify(tableData)); // Lưu mảng vào local storage
+            }
+            
+            $('#btn1').click(function () {
+                savedata();
+            });
+            $('#btn2').click(function () {
+                savedata();
+            });
+
+        });
+
+    </script>
+    <!-- function savedata() {
+                var tableData = []; // Khởi tạo mảng rỗng để lưu dữ liệu
+                $('#tbsp tbody tr').each(function (row, tr) {
+                    tableData[row] = {
+                        "stt": $(tr).find('td:eq(0)').text(),
+                        "image": $(tr).find('td:eq(1) img').attr('src'),
+                        "product": $(tr).find('td:eq(2)').text(),
+                        "quantity": $(tr).find('td:eq(3)').text(),
+                        "unitprice": $(tr).find('td:eq(4)').text(),
+                        "total": $(tr).find('td:eq(5)').text(),
+                    }
+                });
+                localStorage.setItem("tableData", JSON.stringify(tableData)); // Lưu mảng vào local storage
+            } -->
 </head>
 
-<body>
+<body onload="renderList()">
     <div class="d-flex flex-column flex-md-row align-items-center px-md-4 bg-green shadow-sm ">
         <h5 class="my-0 mr-md-auto" style="color: rgb(8, 14, 1)">Chào mừng bạn đến với Shop Watchstore</h5>
         <nav class="navbar-expand-lg  p-0 shadow">
@@ -24,7 +66,7 @@
                     <a class="nav-link" href="./dangki.html">Đăng kí</a>
                 </li>
                 <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="./thanhtoan.html">
+                    <a class="nav-link" href="./giohang.html">
                         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-cart4" fill="currentColor"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -125,8 +167,8 @@
                     <div class="card mb-4 shadow-sm">
                         <img class="card-img-top" width="100" height="100%" src="../img/EFR-S108D-1AVUDF.jpg" />
                         <div class="card-body">
-                            <label for="" class="bold">Casio 40mm Nam EFR-S108D-1AVUDF</label>
-                            <p style="color: red;">3.670.000đ <span
+                            <label for="" class="bold" id="casio">Casio 40mm Nam EFR-S108D-1AVUDF</label>
+                            <p style="color: red;" id="gia">3.670.000đ <span
                                     style="color: rgb(152, 151, 151); text-decoration-line: line-through;font-size: 13px;">5.460.000đ</span><span
                                     style="font-size: 13px; background-color: red; color: white; margin-left: 7px;">20%</span>
                             </p>
@@ -141,6 +183,43 @@
                                     </a>
                                     <a href="./thanhtoan.html">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">Chọn mua</button>
+                                    </a>
+                                    <a href="#" style="margin-left: 20px;">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            id="btn1">+</button>
+                                        <table class="table table-hover" id="tbsp" style="display: none;">
+                                            <thead>
+                                                <tr>    
+                                                    <th>Stt</th>
+                                                    <th>Ảnh</th>
+                                                    <th>Tên sản phẩm</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Đơn giá</th>
+                                                    <th>Thành tiền</th>
+                                                    <th>Hành động</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td><img src="../img/EFR-S108D-1AVUDF.jpg" alt=""></td>
+                                                    <td>Casio 40mm Nam EFR-S108D-1AVUDF</td>
+                                                    <td>1</td>
+                                                    <td>3.670.000</td>
+                                                    <td>3.670.000</td>
+                                                    <td>
+                                                        <button class="btn btn-danger" type="button">Hủy</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="5" class="text-right font-weight-bold">Tổng cộng:</td>
+                                                    <td class="font-weight-bold">15.560.000đ</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
                                     </a>
                                 </div>
                                 <small class="text-muted">Còn hàng</small>
@@ -168,6 +247,43 @@
                                     </a>
                                     <a href="./thanhtoan.html">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">Chọn mua</button>
+                                    </a>
+                                    <a href="#" style="margin-left: 20px;">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            id="btn2">+</button>
+                                        <table class="table table-hover" id="tbsp" style="display: none;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Stt</th>
+                                                    <th>Ảnh</th>
+                                                    <th>Tên sản phẩm</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Đơn giá</th>
+                                                    <th>Thành tiền</th>
+                                                    <th>Hành động</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td><img src="../imgs/dong-ho-nam1.jpg" alt=""></td>
+                                                    <td>Đồng Hồ Orient 39.3mm Nam RE-AT0002E00B</td>
+                                                    <td>1</td>
+                                                    <td>15.560.000đ</td>
+                                                    <td>15.560.000đ</td>
+                                                    <td>
+                                                        <button class="btn btn-danger" type="button">Hủy</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="5" class="text-right font-weight-bold">Tổng cộng:</td>
+                                                    <td class="font-weight-bold">15.560.000đ</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
                                     </a>
                                 </div>
                                 <small class="text-muted">Còn hàng</small>

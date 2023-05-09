@@ -20,6 +20,15 @@
             color: red;
             font-style: italic;
         }
+
+        table tr td img {
+            width: 90px;
+            height: 100px;
+        }
+
+        table tr:hover {
+            cursor: pointer;
+        }
     </style>
     <script>
         function kiemtraho() {
@@ -56,7 +65,42 @@
                 return true;
             }
         }
+        //thông báo thanh toán thành công khi click vào nút thanh toán
+        $(document).ready(function () {
+            $("#btnthanhtoan").click(function () {
+                alert("Thanh toán thành công!!!");
+            });
+            //get tableData ở localstorage lên table
+            function getdata() {
+                var tableData = JSON.parse(localStorage.getItem("tableData")); // Lấy dữ liệu từ local storage
+                if (tableData != null) {
+                    var data = '';
+                    for (var i = 0; i < tableData.length; i++) {
+                        data += '<tr><td>' + tableData[i].stt + '</td><td><img src="' + tableData[i].image + '"></td><td>' + tableData[i].product + '</td><td>' + tableData[i].quantity + '</td><td>' + tableData[i].unitprice + '</td><td>' + tableData[i].total;
+
+                    }
+                    $('#tbsp tbody').append(data);
+                }
+            }
+            getdata();
+            function luuthongtin() {
+                var ho = document.getElementById("firstName").value;
+                var ten = document.getElementById("lastName").value;
+                var email = document.getElementById("email").value;
+                var diachi = document.getElementById("address").value;
+                var thanhpho = document.getElementById("country").value;
+                var zip = document.getElementById("zip").value;
+                var card = document.getElementById("cc-number").value;
+                var ngay = document.getElementById("cc-expiration").value;
+                var cvv = document.getElementById("cc-cvv").value;
+                
+            }
+            $("#btnthanhtoan").click(function () {
+                luuthongtin();
+            });
+        });
     </script>
+
 </head>
 
 <body class="" style="background-image: url(../img/backgronddn.jpg);">
@@ -69,9 +113,34 @@
         <div class="row">
 
 
-            <h4 class="col-2" style="color: white;">Thông tin đơn hàng</h4>
+            <h4 class="col-12" style="color: white;">Thông tin đơn hàng</h4>
             <form class="needs-validation" novalidate="">
                 <div class="row">
+                    <div class="col-12">
+                        <table class="table table-hover" id="tbsp" style="color:  white;">
+                            <thead>
+                                <tr>
+                                    <th>Stt</th>
+                                    <th>Ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Đơn giá</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody style="color: aliceblue;">
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" class="text-right font-weight-bold">Tổng cộng:</td>
+                                    <td class="font-weight-bold"><span id="tongtien">*</span></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
                     <div class="col-md-6 mb-3">
                         <label for="firstName" style="color: white;">Họ</label>
                         <input type="text" class="form-control" id="firstName" placeholder="" value="" required=""
@@ -94,23 +163,24 @@
 
                 <div class="mb-3">
                     <label for="username" style="color: white;">Tên tài khoản</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">@</span>
-                        </div>
-                        <input type="text" class="form-control" id="username" placeholder="Username" required="">
-                        <div class="invalid-feedback" style="width: 100%;">
-                            Your username is required.
-                        </div>
+                    <input type="text" class="form-control" id="username" placeholder="Username" required="">
+                    <div class="invalid-feedback" style="width: 100%;">
+                        Your username is required.
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" style="color: white;">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com" required="">
-                    <div class="invalid-feedback">
-                        Bạn chưa nhập địa chỉ email!!!
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">@</span>
+                        </div>
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required="">
+                        <div class="invalid-feedback">
+                            Bạn chưa nhập địa chỉ email!!!
+                        </div>
                     </div>
+
                 </div>
                 <div class="mb-3">
                     <label for="address" style="color: white;">Địa chỉ</label>
@@ -165,14 +235,9 @@
                         sau</label>
                 </div>
                 <hr class="mb-4">
-
-
-
-
-
-
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Thanh toán</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit" id="btnthanhtoan"
+                    onclick="savedata();">Thanh toán</button>
             </form>
             <a href="../index.html" style="text-decoration: none;margin-left: 50px;"><button
                     class="btn btn-primary btn-lg btn-block mt-3" type="submit">Tiếp tục mua sắm</button></a>

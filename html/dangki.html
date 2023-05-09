@@ -119,6 +119,7 @@
             var ns = document.getElementById("birthday").value;
             var dt = document.getElementById("phone").value;
             var dc = document.getElementById("address").value;
+            var pwd = document.getElementById("pwd").value;
 
             var gt = document.querySelector('input[name="gender"]:checked').value;
             var ht = new String(h + " " + t);
@@ -130,24 +131,48 @@
             var c3 = row.insertCell(3);
             var c4 = row.insertCell(4);
             var c5 = row.insertCell(5);
+            var c6 = row.insertCell(6);
 
-            if (un != "" && h != "" && t != "" && ns != "" && dt != "" && dc != "" && gt != "") {
+            if (un != "" && h != "" && t != "" && ns != "" && dt != "" && dc != "" && gt != "" && pwd != "") {
                 c0.innerHTML = un;
                 c1.innerHTML = ht;
                 c2.innerHTML = ns;
                 c3.innerHTML = gt;
                 c4.innerHTML = dt;
                 c5.innerHTML = dc;
+                c6.innerHTML = pwd;
         
                 count++;
             } else {
                 alert("Vui lòng nhập đầy đủ thông tin trước khi đăng kí.");
             }
+            //dữ liệu từ table được lưu trong localStorage dạng list
+            var list = [
+                {
+                    username: un,
+                    password: pwd,
+                    hoten: ht,
+                    ngaysinh: ns,
+                    gioitinh: gt,
+                    dienthoai: dt,
+                    diachi: dc
+                }
+
+            ];
+            //chuyển dữ liệu từ list sang chuỗi json
+            var json = JSON.stringify(list);
+            //lưu dữ liệu vào localStorage
+            localStorage.setItem("list", json);
+            alert("Đăng kí thành công");
         }
+       function renderlist(){
+        console.log("renderlist");
+       }
+        
     </script>
 </head>
 
-<body>
+<body onload="renderlist();">
     <div class="d-flex flex-column flex-md-row align-items-center px-md-4 bg-dark shadow-sm ">
         <h5 class="my-0 mr-md-auto" style="color: white">Chào mừng bạn đến với Watchstore</h5>
         <nav class="navbar-expand-lg  p-0 shadow">
@@ -299,8 +324,10 @@
             <th>Giới tính</th>
             <th>Sđt</th>
             <th>Địa chỉ</th>
+            <th>Password</th>
         </tr>
     </table>
+    
 </body>
 
 </html>

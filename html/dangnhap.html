@@ -1,49 +1,89 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Dang nhap</title>
-    <link href="../css/bootstrap.css" rel="stylesheet">
-    <link href="../css/index.css" rel="stylesheet">
-    <script src="../js/jquery-3.5.1.min.js"></script>
-    <script src="../js/bootstrap.bundle.js"></script>
-    <link href="../css/dangnhap.css" rel="stylesheet">
-    <style>
-      body {
-        background-image: url("../img/backgronddn.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Dang nhap</title>
+  <link href="../css/bootstrap.css" rel="stylesheet">
+  <link href="../css/index.css" rel="stylesheet">
+  <script src="../js/jquery-3.5.1.min.js"></script>
+  <script src="../js/bootstrap.bundle.js"></script>
+  <link href="../css/dangnhap.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("../img/backgronddn.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+  <script>
+    $(document).ready(function () {
+      $(document).ready(function () {
+        function ktdangnhap() {
+          var username = $("#username").val();
+          var password = $("#inputPassword").val();
+
+          // Lấy dữ liệu từ localStorage và chuyển đổi thành object
+          var storedList = JSON.parse(localStorage.getItem("list"));
+
+          // Duyệt qua các phần tử trong storedList để kiểm tra username và password
+          for (var i = 0; i < storedList.length; i++) {
+            if (storedList[i].username == username && storedList[i].password == password) {
+              // Nếu thông tin đăng nhập hợp lệ thì thực hiện các hành động cần thiết
+              alert("Đăng nhập thành công!");
+              window.location.href = "../index.html";
+              return;
+            }else {
+              $("#err").text("Sai tên đăng nhập hoặc mật khẩu!"); // Thông báo lỗi đăng nhập
+              $("#err").addClass("error");
+            }
+          }
+        }
+        $('#login-btn').click(function () {
+          ktdangnhap();
+        });
+      });
+
+    }
+    );
+  </script>
 </head>
+
 <body>
   <form class="form-signin">
-        <div class="text-center mb-4">
-            <img class="d-block mx-auto mb-4" src="../img/logo.jpg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal" style="color: aliceblue;">Thông tin đăng nhập</h1>
-        </div>
-        <div class="form-label-group">
-    <input type="text" id="username" class="form-control" placeholder="Tên đăng nhập" required autofocus>
-    <label for="username">Tên đăng nhập</label>
-  </div>
+    <div class="text-center mb-4">
+      <img class="d-block mx-auto mb-4" src="../img/logo.jpg" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal" style="color: aliceblue;">Thông tin đăng nhập</h1>
+    </div>
+    <div class="form-label-group">
+      <input type="text" id="username" class="form-control" placeholder="Tên đăng nhập" required autofocus>
+      <label for="username">Tên đăng nhập</label>
+    </div>
 
-  <div class="form-label-group">
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <label for="inputPassword">Mật khẩu</label>
-  </div>
-  <div class="checkbox mb-3">
-    <label style="color: aliceblue;">
-      <input type="checkbox" value="remember-me" style="color: aliceblue;"> Nhớ tài khoản
-    </label>
-  </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit" >Đăng nhập</button>
-  <div class="text-center mb-4">
-    <h6 style="color: aliceblue;">Bạn chưa có tài khoản?
-    <a href="./dangki.html" style="color: aliceblue;">Đăng kí</a></h6>         
-  </div>
+    <div class="form-label-group">
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <label for="inputPassword">Mật khẩu</label>
+      <span id="err">*</span>
+    </div>
+    <div class="checkbox mb-3">
+      <label style="color: aliceblue;">
+        <input type="checkbox" value="remember-me" style="color: aliceblue;"> Nhớ tài khoản
+      </label>
+    </div>
+    <button type="button" class="btn btn-lg btn-primary btn-block" id="login-btn">Đăng nhập </button>
+    <div class="text-center mb-4">
+      <h6 style="color: aliceblue;">Bạn chưa có tài khoản?
+        <a href="./dangki.html" style="color: aliceblue;">Đăng kí</a>
+
+      </h6>
+    </div>
   </form>
-  
+
 </body>
+
 </html>
