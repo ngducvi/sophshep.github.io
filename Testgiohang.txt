@@ -1,1 +1,5 @@
-Sản phẩm ở trong danhmuc/casio/ và thêm các sản phẩm có dấu + để thêm vào giỏ hàng  
+Sản phẩm ở trong danhmuc/casio/ và thêm các sản phẩm có dấu + để thêm vào giỏ hàng ở trong localstorage
+
+Có thể thêm sản phẩm
+Xóa sản phẩm 
+Chỉnh sửa sản phẩm ở trong giỏ hàng
